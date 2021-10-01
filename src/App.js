@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { ToDoForm } from "./components/ToDoForm";
 import { ToDoList } from "./components/ToDoList";
+import { ListProvider } from "./contexts/ListContext";
 
 function App() {
-  const [toDoList, setToDoList] = useState([]);
   return (
-    <>
-      <ToDoForm toDoList={toDoList} setToDoList={setToDoList} />
-      <ToDoList list={toDoList} setToDoList={setToDoList} />
-    </>
+    <ListProvider>
+      <ToDoForm />
+      <ToDoList />
+    </ListProvider>
   );
 }
 

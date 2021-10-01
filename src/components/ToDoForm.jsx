@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { ListContext } from "../contexts/ListContext";
 
-export const ToDoForm = ({ toDoList, setToDoList }) => {
+export const ToDoForm = () => {
+  const { list, setList } = useContext(ListContext);
   const initialState = {
     title: "",
     description: "",
@@ -16,8 +18,8 @@ export const ToDoForm = ({ toDoList, setToDoList }) => {
   const { title, description, priority } = toDoForm;
 
   useEffect(() => {
-    // console.log(toDoList);
-  }, [toDoList]);
+    // console.log(list);
+  }, [list]);
 
   const handleOnChange = (e) => {
     setToDoForm({ ...toDoForm, [e.target.name]: e.target.value });
@@ -25,14 +27,14 @@ export const ToDoForm = ({ toDoList, setToDoList }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setToDoList([...toDoList, toDoForm]);
+    setList([...list, toDoForm]);
     setToDoForm(initialState); //Reset form input fields
   };
   return (
     <Container className="mb-3">
       <Row>
         <Col className="col-lg-6 m-auto">
-          <h1 className="text-danger">Add a new task</h1>
+          <h1 className="text-danger text-center">Add a new task</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formTitle">
               <Form.Label>Title</Form.Label>
@@ -48,7 +50,7 @@ export const ToDoForm = ({ toDoList, setToDoList }) => {
               <Form.Label>Description</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Activity description"
+                placeholder="Activity description..."
                 name="description"
                 value={description}
                 onChange={handleOnChange}
